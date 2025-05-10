@@ -1,1 +1,1 @@
-php artisan serve --host=0.0.0.0 --port=8082
+print("Hello, World dari Armbian STB!")
