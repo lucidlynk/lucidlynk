@@ -38,4 +38,55 @@ export class TodolistService {
         });
     }
     
+    updateTodo(request, response) {
+        let body = "";
+    
+        request.on("data", (chunk) => {
+            body += chunk.toString();
+        });
+    
+        request.on("end", () => {
+            const parsed = JSON.parse(body);
+            if (parsed.id >= 0 && parsed.id < this.todolist.length) {
+                this.todolist[parsed.id] = parsed.todo;
+            }
+    
+            response.setHeader("Content-Type", "application/json");
+            response.write(this.getJsonTodoList());
+            response.end();
+        });
+    }
+    deleteTodo(request, response) {
+        let body = "";
+
+        request.on("data", (chunk) => {
+            body += chunk.toString();
+        });
+
+        request.on("end", () => {
+            const parsed = JSON.parse(body);
+
+            if (
+                typeof parsed.id !== "number" ||
+                parsed.id < 0 ||
+                parsed.id >= this.todolist.length
+            ) {
+                response.statusCode = 400;
+                response.setHeader("Content-Type", "application/json");
+                response.end(JSON.stringify({
+                    code: 400,
+                    status: "Bad Request",
+                    message: "Field 'id' tidak valid"
+                }));
+                return;
+            }
+
+            // Hapus dengan menghapus elemen pada posisi tersebut
+            this.todolist.splice(parsed.id, 1);
+
+            response.setHeader("Content-Type", "application/json");
+            response.end(this.getJsonTodoList());
+        });
+    }
+    
 }
