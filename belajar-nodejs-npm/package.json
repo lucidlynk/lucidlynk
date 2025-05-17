@@ -1,0 +1,18 @@
+{
+  "name": "belajar-nodejs-npm",
+  "version": "1.0.0",
+  "description": "belajar nodejs npm",
+  "main": "index.js",
+  "scripts": {
+    "run" : "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lucdilynk",
+    "nodejs",
+    "npm"
+  ],
+  "type": "module",
+  "author": "lucidlynk",
+  "license": "ISC"
+}
